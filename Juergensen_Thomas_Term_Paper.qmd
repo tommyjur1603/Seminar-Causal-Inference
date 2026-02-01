@@ -50,7 +50,296 @@ bibliography: references.bib
 
 # Introduction {#sec-intro}
 
+In many empirical
+applications, researchers
+employ multiple instrumental
+variables in \textbf{two-stage
+least squares} (\textbf{2SLS})
+estimation in order to improve
+statistical efficiency. When
+treatment effects are
+constant, combining several
+valid instruments strengthens
+the first stage, reduces
+sampling variance, and leads
+to more precise estimates. In
+such settings, the use of
+multiple instruments is
+uncontroversial and often
+desirable, and efficiency
+considerations alone provide a
+compelling justification for
+their use.
+
+The standard causal
+interpretation of 2SLS is
+rooted in the Local Average
+Treatment Effect (LATE)
+framework of @imbens1994. With
+a single binary instrument
+alongside a standard
+monotonicity assumption, 2SLS
+identifies the average
+treatment effect for those
+individuals whose treatment
+status is changed by the
+instrument, this kind of
+individuals are known as the
+\textbf{compliers}. This
+interpretation has become a
+cornerstone of modern
+empirical practice. When
+multiple instruments are
+available, @angrist1995 showed
+that the 2SLS estimand can be
+interpreted as a positively
+weighted average of local
+average treatment effects
+(LATEs) for subpopulations
+whose treatment status is
+affected by the instruments.
+
+However, justifying this
+interpretation in the
+multiple-instrument setting
+requires a strong
+generalization of the standard
+monotonicity assumption. As
+shown by @mogstad2021, this
+assumption is extremely
+restrictive and is frequently
+violated once treatment
+effects are heterogeneous.
+Importantly, the problem does
+not arise from high
+dimensionality or technical
+complexity. Instead, it is
+inherent to the use of more
+than one instrument, even in
+the simplest possible
+environments.
+
+To make this point
+transparent, this paper
+focuses on the simplest
+nontrivial setting: a binary
+treatment and two binary
+instrumental variables. Even
+in this minimal environment,
+the standard monotonicity
+assumption, which will be
+called "Imbens and Angrist
+monotonicity", or
+\textbf{IAM}, imposes strong
+restrictions on individual
+treatment choice behavior.
+With four possible instrument
+states, the assumption
+requires that each
+individual’s treatment
+decisions across these states
+can be ordered in a single,
+consistent direction. As a
+result, individuals cannot
+respond to different
+instruments in meaningfully
+different ways.
+
+This restriction is difficult
+to reconcile with applied
+work. In empirical practice,
+different instruments
+typically represent distinct
+sources of exogenous
+variation, such as
+institutional rules, policy
+thresholds, or geographic
+constraints. It is therefore
+natural to expect that
+different instruments affect
+different individuals and move
+different margins of the
+population into treatment.
+Nevertheless, such instruments
+are often combined in a single
+2SLS regression and
+interpreted as if they were
+reinforcing the same causal
+effect. The key insight of
+@mogstad2021 is that IAM does
+much more than rule out
+defiers: in the presence of
+multiple instruments, it
+effectively rules out
+economically meaningful
+heterogeneity in how different
+instruments affect treatment.
+
+The main contribution of the
+paper is to make this
+restriction explicit and to
+propose a more credible
+alternative. The authors
+introduce \textbf{partial
+monotonicity}, which requires
+that each instrument, holding
+the other instruments fixed,
+affects treatment in a weakly
+monotone way. This weaker
+assumption allows different
+instruments to influence
+different subpopulations,
+while still ruling out
+perverse responses to each
+instrument individually.
+
+Under partial monotonicity,
+2SLS continues to admit a
+causal interpretation, but its
+nature changes in an important
+way. Rather than identifying a
+single local average treatment
+effect, the 2SLS estimand
+becomes a weighted average of
+multiple group-specific causal
+effects, and these weights do
+not need to be all positive.
+The paper provides a complete
+characterization of this
+estimand, clarifies the
+economic meaning of the
+resulting weights, and shows
+how their signs are directly
+linked to observable
+first-stage relationships.
+
+The remainder of this term
+paper proceeds as follows.
+Section 2 will provide a
+detailed overview of Mogstad,
+Torgovitsky, and Walters'
+methodology and framework,
+introduces IAM and partial
+monotonicity assumptions, and
+discusses their implications
+for treatment choice behavior.
+Section 5 examines the
+empirical implications of the
+framework and illustrates the
+results using a simulation.
+Section 6 discusses
+limitations, open questions,
+and potential extensions, and
+concludes.
+
 ## Literature Review
+
+The starting point for the
+present paper is the classic
+LATE interpretation of IV
+under heterogeneity.
+@imbens1994 established that
+with a single binary
+instrument and monotonicity,
+IV identifies a complier
+average causal effect.
+@angrist1995 then extended
+this logic to multiple
+instruments, showing that 2SLS
+can be interpreted as a
+positively weighted average of
+instrument-specific LATEs
+under a multi-instrument
+monotonicity condition. The
+contribution of the present
+paper is best understood as a
+sharp critique of how
+restrictive this
+multi-instrument monotonicity
+requirement becomes.
+
+Related work by the same
+authors develops complementary
+implications of weakening
+global monotonicity.
+@mogstad2024 can be read as a
+direct extension of the
+present paper’s perspective
+from the interpretation of the
+linear 2SLS estimand to the
+identification of broader
+policy-relevant objects. While
+the present paper
+characterizes what 2SLS means
+under partial monotonicity,
+@mogstad2024 uses the same
+partial monotonicity
+restriction to extract and
+aggregate information from
+multiple instruments for
+target parameters beyond 2SLS.
+In this sense, it extends the
+present paper’s core message,
+that interpretation depends on
+behavioral restrictions, into
+a framework aimed at policy
+evaluation rather than linear
+estimation.
+
+Subsequent work has also taken
+the present paper’s
+assumptions as objects of
+empirical scrutiny. @jiang2023
+addresses a practical
+implication of the present
+paper: once one replaces the
+strong global monotonicity
+requirement with partial
+monotonicity, a natural
+question is whether partial
+monotonicity is plausible in
+applications. The paper
+responds by proposing a simple
+nonparametric test for partial
+monotonicity, assessing its
+finite-sample behavior in
+simulations, and illustrating
+it in an empirical
+application.
+
+A related, more structural
+refinement is provided by
+@goff2024. This paper shares
+the present @mogstad2021
+motivation, in that global
+multi-instrument monotonicity
+is often too restrictive, but
+proposes a different
+weakening, vector
+monotonicity, which requires
+treatment uptake to be
+monotone in each instrument
+without imposing a global
+ordering when instruments
+shift in opposing directions.
+Relative to the present paper,
+its contribution is to
+characterize which causal
+parameters become point
+identified under this
+alternative restriction and to
+provide constructive
+estimation results.
+Conceptually, it highlights
+that once global monotonicity
+is relaxed, different
+monotonicity notions lead to
+different identifiable
+objects, reinforcing the
+present paper’s central
+emphasis on interpretability
+rather than mechanical
+estimation.
 
 # Methodology Overview
 
@@ -60,13 +349,401 @@ second chapter contains the
 methodology developed by
 @mogstad2021.
 
+## Framework and Assumptions
+
+### Setup and Potential Outcomes
+
+To fix ideas and keep the
+exposition transparent, this
+section focuses on the
+simplest nontrivial setting
+considered in the paper: a
+\textbf{binary treatment} and
+\textbf{two binary instrumental variables}.
+While the theoretical results
+extend to more general
+environments, the central
+insights already arise in this
+minimal framework.
+
+Let $D_i \in \{0,1\}$ denote a
+binary treatment and $Y_i$ the
+observed outcome for
+individual $i$. Each
+individual is characterized by
+potential outcomes $Y_i(1)$
+and $Y_i(0)$, corresponding to
+the potential outcomes under
+treatment and control,
+respectively. The observed
+outcome can thus be expressed
+as: \begin{equation}
+Y_i = D_i Y_i(1) + (1 - D_i) Y_i(0).
+\end{equation}
+
+Treatment assignment depends
+on two binary instruments,
+\begin{equation}
+Z_i = (Z_{i1}, Z_{i2}) \in \{0,1\}^2,
+\end{equation} which generate
+four possible instrument
+realizations: $(0,0)$,
+$(0,1)$, $(1,0)$, and $(1,1)$.
+Treatment choice is described
+by a potential treatment
+function $D_i(z_1, z_2)$,
+allowing for heterogeneous
+responses across individuals
+and differential responses to
+the two instruments.
+
+### 2SLS Estimand
+
+The object of interest is the
+two-stage least squares
+estimand, denoted
+$\beta_{2SLS}$. The population
+2SLS estimand can be written
+as \begin{equation}
+\beta_{2SLS} = \frac{\mathbb{E}[\tilde{D}_i\tilde{Y}_i]}{\mathbb{E}[\tilde{D}_i^2]},
+\end{equation} where
+$\tilde{D}_i = \mathbb{E}[D_i|Z_i] - \mathbb{E}[D_i]$
+and
+$\tilde{Y}_i = \mathbb{e}[Y_i|Z_i] - \mathbb{E}[Y_i]$
+denote the residualized
+treatment and outcome with
+respect to the instrument
+space. Equivalently,
+$\beta_{2SLS}$ can be
+expressed as \begin{equation}
+\beta_{2SLS} = \frac{\text{Cov}(\mathbb{E}[D_i|Z_i], \mathbb{E}[Y_i|Z_i]),}{\text{Var}(\mathbb{E}[D_i|Z_i])}.
+\end{equation} In the
+binary-instrument setting,
+this representation highlights
+that the 2SLS estimand
+aggregates outcome differences
+across instrument-induced
+changes in treatment
+propensity. Under standard
+instrumental variables
+assumptions, this estimand is
+well defined and consistently
+estimated by sample 2SLS.
+
+The focus of the present paper
+is not on estimation or
+consistency, but on the causal
+interpretation of
+$\beta_{2SLS}$. In particular,
+the central question is, under
+which assumptions on treatment
+choice behavior can
+$\beta_{2SLS}$ be written as a
+weighted average of causal
+effects, and which causal
+effects are being aggregated?
+Addressing this question
+requires explicit assumptions
+on how the instruments affect
+treatment.
+
+## Imbens and Angrist Monotonicity (IAM)
+
+A natural starting point is
+the extension of the standard
+monotonicity assumption from
+the single-instrument LATE
+framework, known as Imbens and
+Angrist Monotonicity (IAM).
+
+\textbf{Definition 1 (Imbens and Angrist Monotonicity)}
+
+\textit{For all $z, z' \in \mathcal{Z}$ either $D_i(z) \ge D_i(z')$ for all $i \in \mathcal{I}$, or $D_i(z) \le D_i(z')$ for all $i \in \mathcal{I}$.}
+
+Under IAM, there must exist a
+global ordering of the four
+instrument values such that,
+for every individual,
+treatment status moves weakly
+in the same direction along
+this ordering.
+
+When IAM holds, the 2SLS
+estimand admits a causal
+interpretation as a weighted
+average of local average
+treatment effects.
+Importantly, IAM is not an
+assumption imposed separately
+on each instrument. Rather, it
+is a joint restriction across
+all instrument combinations.
+
+While this monotonicity
+assumption in the
+single-instrument case simply
+rules out defiers and is often
+viewed as a mild behavioral
+restriction, IAM becomes
+substantially more demanding
+when multiple instruments are
+present. In particular, it
+places strong constraints on
+heterogeneity in treatment
+choice by requiring all
+instruments to operate along
+the same margin of
+individuals.
+
+## Partial Monotonicity
+
+To address the restrictiveness
+of IAM, the paper proposes a
+weaker alternative called
+partial monotonicity.
+
+\textbf{Definition 2 (Partial Monotonicity)}
+
+\textit{Take any $l = 1, \dots, L$, and let $(z_l, z_{-l})$ and $(z'_l, z_{-l})$ be two points in $\mathcal{Z}$. Then, either $D_i(z_l, z_{-l}) \ge D_i(z'_l, z_{-l})$ for all $i \in \mathcal{I}$, or or $D_i(z_l, z_{-l}) \le D_i(z'_l, z_{-l})$ for all $i \in \mathcal{I}$.}
+
+Partial monotonicity relaxes
+the global ordering
+requirement imposed by IAM
+while retaining enough
+structure to support causal
+interpretation.
+
+Formally, partial monotonicity
+requires that each instrument
+affects treatment in a weakly
+monotone way when
+\textbf{holding the other instrument fixed}.
+That is, increasing $Z_{i1}$
+from 0 to 1 cannot induce some
+individuals to enter treatment
+and others to exit treatment
+conditional on $Z_{i2}$, and
+analogously for $Z_{i2}$.
+
+Crucially, partial
+monotonicity does not impose a
+global ordering across all
+instrument combinations. As a
+result, it allows exactly the
+type of heterogeneity that IAM
+rules out. Different
+instruments may affect
+different subpopulations, one
+instrument may induce
+treatment for one group of
+individuals, while the other
+operates on a distinct margin.
+From an economic perspective,
+this behavior is often natural
+when instruments capture
+different incentives or
+constraints.
+
+### Response Groups under Partial Monotonicity
+
+The partial monotonicity
+assumption implies that
+individuals can be classified
+into distinct response groups
+based on how their treatment
+status responds to changes in
+each instrument. In the
+binary-instrument setting, we
+have \begin{equation}
+Z_i = (Z_{i1}, Z_{i2}) \in \{0,1\}^2,
+\end{equation} which generate
+four possible instrument
+values
+$z_1 = (0,0), z_2 = (0,1), z_3 = (1,0), z_4 = (1,1)$.
+Treatment choice is described
+by the potential treatment
+function $D_i(z_1,z_2)$, which
+specifies whether individual
+$i$ receives treatment under
+each instrument realization.
+
+The following proposition,
+establishes that the
+population can be partitioned
+into six exclusive response
+groups.
+
+\textbf{Proposition 1}[^1]:
+
+[^1]: This proposition is
+    adapted from @mogstad2021.
+
+\textit{If $\mathcal{Z} = \{0,1\}^2$ and partial monotonicity holds with the following order:}
+\begin{equation}
+D_i(0,0) \le D_i(0,1) \le D_i(1,1),
+\end{equation} \textit{and}
+\begin{equation}
+D_i(0,0) \le D_i(1,0) \le D_i(1,1),
+\end{equation}
+\textit{then each $i \in \mathcal{I}$ belongs exactly to one of the six groups in Table 1.}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c c c}
+\hline
+\textbf{Group} $G_i$ & $D_i(0,0)$ & $D_i(0,1)$
+ & $D_i(1,0)$ & $D_i(1,1)$ \\
+\hline
+Always-taker (\textbf{at}) & 1 & 1 & 1 & 1 \\
+Eager complier (\textbf{ec}) & 0 & 1 & 1 & 1 \\
+Reluctant complier (\textbf{rc}) & 0 & 0 & 0 & 1 \\
+Never-taker (\textbf{nt}) & 0 & 0 & 0 & 0 \\
+$Z_1$ complier (\textbf{c1}) & 0 & 0 & 1 & 1 \\
+$Z_2$ complier (\textbf{c2}) & 0 & 1 & 0 & 1 \\
+\hline
+\end{tabular}
+\caption{Response Groups under Partial Monotonicity}
+\end{table}
+
+Since the focus is on the
+causal interpretation of 2SLS,
+four of these six groups are
+particularly relevant:
+
+\begin{enumerate}
+\item \textbf{$Z_1$ compliers (c1)}: individuals whose treatment status changes when $Z_{i1}$ switches from 0 to 1, holding $Z_{i2}$ fixed, but who do not respond to changes in $Z_{i2}$.
+\item \textbf{$Z_2$ compliers (c2)}: individuals whose treatment status changes when $Z_{i2}$ switches from 0 to 1, holding $Z_{i1}$ fixed, but who do not respond to changes in $Z_{i1}$.
+\item \textbf{Eager compliers (ec)}: individuals who enter treatment when either instrument is activated. For these individuals, both instruments independently push them into treatment.
+\item \textbf{Reluctant compliers (rc)}: individuals who enter treatment only when both instruments are active. Each instrument alone is insufficient, but their joint activation induces treatment.
+\end{enumerate}
+
+These groups generalize the
+familiar complier concept from
+the single-instrument LATE
+framework and reflect the fact
+that different instruments may
+operate on different margins
+of the population. In
+particular, individuals are
+allowed to respond differently
+to different instruments, as
+long as each instrument moves
+treatment in a consistent
+direction holding the other
+fixed.
+
+## 2SLS Estimand under Partial Monotonicity
+
+### Instrumental Variable Assumptions
+
+The 2SLS estimand under
+partial monotonicity is
+derived naturally under
+partial monotonicity, but also
+under the standard
+instrumental-variables
+assumptions.
+
+\textbf{Instrument Relevance:} \textit{Each instrument has a nonzero effect on the probability of treatment:}
+\begin{equation}
+\mathbb{P}(D_i = 1 | Z_{i,l} = 1) \ne \mathbb{P}(D_i = 1 | Z_{i,l} = 0), \quad l \in \{1,2\}.
+\end{equation}
+\textbf{Instrument Exogeneity:} \textit{The instruments are independent of potential outcomes and potential treatments:}
+\begin{equation}
+(Y_i(0), Y_i(1), \{D_i(z)\}_{z \in \mathcal{Z}}) \perp Z_i.
+\end{equation}
+\textbf{Exclusion:} \textit{Instruments affect the outcome only through treatment:}
+\begin{equation}
+Y_i(z) = Y_i(D_i(z)) \quad \textit{for all } z \in \mathcal{Z}.
+\end{equation}
+
+### Causal Interpretation of 2SLS under Partial Monotonicity
+
+\textbf{Theorem 1}[^2]:
+
+[^2]: This theorem is adapted
+    from @mogstad2021.
+
+\textit{Suppose the instrument vector $Z_i = (Z_{i1}, Z_{i2})$ has support $\mathcal{Z} = \{0,1\}^2$, and that \textbf{partial monotonicity, instrument relevance, instrument exogeneity, and the exclusion restriction} hold. Suppose further that the potential outcomes are well-defined and that the 2SLS estimand $\beta_{2SLS}$ exists. Then, the 2SLS estimand can be expressed as:}
+\begin{equation}
+\beta_{2SLS} = \sum_{g \in \{1c, 2c, ec, rc\}} w_g \Delta_g,
+\end{equation}
+\textit{where $\Delta_g$ denotes the average treatment effect for response group $g$, and $w_g$ are weights with $\sum_g w_g = 1$. Both the weights of eager compliers and reluctant compliers are always nonnegative, i.e. $w_{ec}, w_{rc} \ge 0$, while one of the weights of $Z_1$ compliers or $Z_2$ compliers can be negative.}
+
+\textit{If $\pi_{1c} \ge \pi_{2c}$ where $\pi_g := \mathbb{P}(G_i = g)$, then $w_{1c}$ is also nonnegative, while the sign of $w_{2c}$ is given by:}
+\begin{equation}
+\text{sgn}(w_{2c}) = \mathbb{I}[\pi_{2c} > 0] \times \text{sgn}[\mathbb{P}(D_i = 1 | Z_{i,2} = 1] - \mathbb{P}[D_i = 1 | Z_{i,2} = 0)].
+\end{equation}
+\textit{If $\pi_{2c} \ge \pi_{1c}$, then $w_{2c}$ is nonnegative, while the sign of $w_{1c}$ is given by}
+\begin{equation}
+\text{sgn}(w_{1c}) = \mathbb{I}[\pi_{1c} > 0] \times \text{sgn}[\mathbb{P}(D_i = 1 | Z_{i,1} = 1) - \mathbb{P}(D_i = 1 | Z_{i,1} = 0)].
+\end{equation}
+
+This theorem establishes that the 2SLS estimand can be interpreted as a weighted average of average treatment effects for the four possible groups that change treatment status in response to the one or both of the instruments.
+
+The economic intuition is that some changes in the instrument values, specifically the shift from $(0,1)$ to $(1,0)$ can generate two-way treatment flows, this means that one group of individuals enters treatment while another exits. When this happens, the associated complier group receives a negative weight.
+
+This result provides a complete characterization of what 2SLS identifies under partial monotonicity. Rather than a single LATE, the estimand aggregates causal effects across multiple response groups, with the sign and magnitude of the weights determined by observable first-stage relationships.
+
+\textbf{Proof of Theorem 1}[^3]:
+
+[^3]: This proof is also adapted
+    from @mogstad2021.
+    
+The goal of the proof is to show that, under partial monotonicity and standard IV assumptions, the 2SLS estimand can be expressed as a weighted average of group-specific treatment effects, and to characterize precisely when one of these weights may be negative.
+
+The proof begins by labeling the four possible realizations of the two binary instruments as
+\begin{equation}
+z^1 = (0,0), z^2 = (0,1), z^3 = (1,0), z^4 = (1,1),
+\end{equation} and denoting their probabilites as $q_k = \mathbb{P}(Z_i = z^k)$ for $k = 1, \dots, 4$. Let
+\begin{equation}
+p_k = \mathbb{P}[D_i = 1 | Z_i = z^k],
+\end{equation} denote the propensity score associated with instrument value $z^k$. Under partial monotonicity and the ordering assumed in the paper, these propensity scores are weakly increasing in $k$. A key result used in the proof is a result due to Angrist and Imbens, which shows that in this setting the 2SLS estimand can be written as a convex combination of three Wald estimands corresponding to adjacent changes in the instrument values, i.e.
+\begin{equation}
+\beta_{2SLS} = \lambda_2 w_2 + \lambda_3 w_3 + \lambda_4 w_4,
+\end{equation} where the coefficients $\lambda_k$ are positive weights and sum to one. The Wald estimands $w_k$ are defined as
+\begin{equation}
+w_k := \frac{\mathbb{E}[Y_i | Z_i = z^k] - \mathbb{E}[Y_i | Z_i = z^{k-1}]}{p(z^k) - p(z^{k-1})}, \quad k = 2,3,4.
+\end{equation} Each Wald estimand captures the average causal effect for individuals whose treatment status changes when the instrument moves from $z^{k-1}$ to $z^k$. The weights $\lambda_k$ are defined as
+\begin{equation}
+\lambda_k := \frac{(p(z^k) - p(z^{k-1}))\sum_{l=k}^4 q^l(p(z^l) - \mathbb{E}[p(Z_i)])}{\sum_{j=2}^4 [(p(z^j) - p(z^{j-1})) \sum_{l=j}^4 q^l (p(z^l) - \mathbb{E}[p(Z_i)])]}.
+\end{equation} The group definitions from Proposition 1 implies that $w_2$ represents the average treatment effect for both the $Z_2$ compliers and the eager compliers. Similarly, $w_4$ captures the average treatment effect for $Z_2$ compliers and reluctant compliers, i.e.
+\begin{equation}
+w_2 = \left(\frac{\pi_{2c}}{\pi_{2c} + \pi_{ec}}\right)\Delta_{2c} + \left(\frac{\pi_{ec}}{\pi_{2c} + \pi_{ec}}\right)\Delta_{ec}
+\end{equation} and
+\begin{equation}
+w_4 = \left(\frac{\pi_{2c}}{\pi_{2c} + \pi_{rc}}\right)\Delta_{2c} + \left(\frac{\pi_{rc}}{\pi_{2c} + \pi_{rc}}\right)\Delta_{rc}.
+\end{equation} For the transitions from $z^1 \rightarrow z^2$ and from $z^3 \rightarrow z^4$, only one instrument changes while the other is held fixed. Under partial monotonicity, these transitions induce one-directional treatment movements, i.e. individuals either enter treatment or remain untreated. As a result, the corresponding Wald estimands can be written as weighted averages of treatment effects for well-defined complier groups. Importantly, all weights involved in these decompositions are nonnegative.
+
+However, the crucial part comes from the transition from $z^2 = (0,1) \rightarrow z^3 = (1,0)$, which is different. Along this margin, one instrument increases while the other decreases. Partial monotonicity allows this change to generate \textbf{two-way treatment flows}, where $Z_1$ compliers enter treatment while $Z_2$ compliers exit treatment. Consequently, the Wald estimand $w_3$ can be expressed as
+\begin{equation}
+\begin{aligned}
+w_3 &= \frac{\mathbb{E}[(Y_i(1) - Y_i(0))(D_i(1,0) - D_i(0,1))]}{p(z^3) - p(z^2)}\\ &= \left(\frac{\pi_{1c}}{p(z^3) - p(z^2)}\right)\Delta_{1c} + \left(\frac{\pi_{2c}}{p(z^3) - p(z^2)} \right)\Delta_{2c} \\ &= \left(\frac{\pi_{1c}}{\pi_{1c} - \pi_{2c}}\right)\Delta_{1c} + \left(\frac{\pi_{2c}}{\pi_{1c} - \pi_{2c}} \right)\Delta_{2c}.
+\end{aligned}
+\end{equation} Substituting the decompositions of the three Wald estimands back into the convex combination for $\beta_{2SLS}$ yields
+\begin{equation}
+\beta_{2SLS} = \sum_{g \in \{1c, 2c, ec, rc\}} w_g \Delta_g,
+\end{equation} where
+$$
+\begin{aligned}
+w_{ec} &:= \frac{\lambda_{2}\pi_{ec}}{\pi_{ec} + \pi_{2c}}, \\
+w_{1c} &:= \frac{\lambda_3 \pi_{1c}}{\pi_{1c} - \pi_{2c}}, \\
+w_{rc} &:= \frac{\lambda_4 \pi_{rc}}{\pi_{rc} + \pi_{2c}}, \\
+w_{2c} &:= 
+\left(\frac{\lambda_{2}\pi_{2c}}{\pi_{ec} + \pi_{2c}}\right)
+- \left(\frac{\lambda_3\pi_{2c}}{\pi_{1c} - \pi_{2c}}\right)
++ \left(\frac{\lambda_4 \pi_{2c}}{\pi_{rc} + \pi_{2c}}\right).
+\end{aligned}
+$$ 
+The proof shows that the weights on eager and reluctant compliers are always nonnegative, and that at most one instrument-specific complier group can receive a negative weight. Moreover, the sign of this potentially negative weight is not arbitrary, it is entirely determined by an observable first-stage object, specifically by the covariance between treatment and the corresponding instrument. In particular, the weight on $Z_2$ compliers is negative if and only if the first-stage effect of $Z_2$ on treatment is negative along the relevant margin.
+
+The central insight of the proof is therefore that negative weights arise only when an instrument change induces offsetting treatment flows, i.e. some individuals enter treatment while others exit. Apart from this specific case, all components of the 2SLS estimand receive nonnegative weight.
+
 # Simulation Study
 
 # Discussion
 
 ## Summary
-
-
 
 \newpage
 
@@ -76,32 +753,3 @@ methodology developed by
 
 ::: {#refs}
 :::
-
-# Declaration of authorship {.unnumbered}
-
-I hereby declare that I have
-written this term paper
-independently and without the
-help of others, and that I
-have not used any sources or
-aids other than those
-indicated. All passages that
-are taken directly or
-indirectly from other sources
-are marked as such. AI-based
-tools were solely used for
-proofreading, grammar
-checking, and formatting. This
-term paper has not been
-submitted in this or a similar
-form to any other examination
-authority and has not been
-published elsewhere.
-
-\vspace{2cm}
-
-\quad \quad \quad Munich,
-March 16\textsuperscript{th}
-2026
-\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
-Thomas Jürgensen
