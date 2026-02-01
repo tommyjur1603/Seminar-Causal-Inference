@@ -739,6 +739,8 @@ The proof shows that the weights on eager and reluctant compliers are always non
 
 The central insight of the proof is therefore that negative weights arise only when an instrument change induces offsetting treatment flows, i.e. some individuals enter treatment while others exit. Apart from this specific case, all components of the 2SLS estimand receive nonnegative weight.
 
+\newpage
+
 # Simulation Study
 
 # Discussion
